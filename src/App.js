@@ -6,7 +6,7 @@ import SearchResults from './components/SearchResults';
 function App() {
   return (
     <Routes>
-      <Route path="/movie/:id" element={<MovieCard />} />
+      <Route path="/moviecard" element={<MovieCard />} />
       <Route path="/search" element={<SearchResults />} />
     </Routes>
   );
