@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 function SearchResults(props) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,8 +46,14 @@ function SearchResults(props) {
         <button type="submit">Search</button>
       </form>
       <div>
-        {results.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+        {results.map((movie, index) => (
+          <div key={index}>
+            <h2>{movie.Title}</h2>
+            <p>{`Directed by: ${movie.Director}`}</p>
+            <p>{`Released in: ${movie.Year}`}</p>
+            <p>{`IMDb Rating: ${movie.imdbRating}`}</p>
+            <p>{`Plot: ${movie.Plot}`}</p>
+          </div>
         ))}
       </div>
     </div>
