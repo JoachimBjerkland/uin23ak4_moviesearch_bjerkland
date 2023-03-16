@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import MovieCard from './components/MovieCard';
-
 function SearchResults(props) {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
