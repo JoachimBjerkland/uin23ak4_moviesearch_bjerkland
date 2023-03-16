@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MovieCard from './MovieCard';
 
 function SearchResults(props) {
   const [results, setResults] = useState([]);
@@ -9,16 +10,18 @@ function SearchResults(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=60a8d1f4`);
+        const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&apikey=60a8d1f4`);
         const data = await response.json();
-        setResults(data);
+        setResults(data.Search);
         setLoading(false);
       } catch (error) {
         setError(error);
         setLoading(false);
       }
     };
-    fetchData();
+    if (searchQuery !== '') {
+      fetchData();
+    }
   }, [searchQuery]);
 
   const handleSearchInputChange = (event) => {
@@ -46,14 +49,8 @@ function SearchResults(props) {
         <button type="submit">Search</button>
       </form>
       <div>
-        {results.map((movie, index) => (
-          <div key={index}>
-            <h2>{movie.Title}</h2>
-            <p>{`Directed by: ${movie.Director}`}</p>
-            <p>{`Released in: ${movie.Year}`}</p>
-            <p>{`IMDb Rating: ${movie.imdbRating}`}</p>
-            <p>{`Plot: ${movie.Plot}`}</p>
-          </div>
+        {results.map((movie) => (
+          <MovieCard key={movie.imdbID} movie={movie} />
         ))}
       </div>
     </div>
