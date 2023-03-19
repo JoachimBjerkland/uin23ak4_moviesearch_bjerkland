@@ -5,21 +5,15 @@ function MovieCard(props) {
   return (
     <div>
       <h2>{movie.Title}</h2>
+      <div>
+        <img src={movie.Poster} alt={movie.Title} />
+      </div>
       <ul>
-        <li><strong>Year:</strong> {movie.Year}</li>
-        <li><strong>Rated:</strong> {movie.Rated}</li>
-        <li><strong>Released:</strong> {movie.Released}</li>
-        <li><strong>Runtime:</strong> {movie.Runtime}</li>
-        <li><strong>Genre:</strong> {movie.Genre}</li>
-        <li><strong>Director:</strong> {movie.Director}</li>
-        <li><strong>Writer:</strong> {movie.Writer}</li>
-        <li><strong>Actors:</strong> {movie.Actors}</li>
-        <li><strong>Plot:</strong> {movie.Plot}</li>
-        <li><strong>Language:</strong> {movie.Language}</li>
-        <li><strong>Country:</strong> {movie.Country}</li>
-        <li><strong>Awards:</strong> {movie.Awards}</li>
-        <li><strong>IMDb Rating:</strong> {movie.imdbRating}</li>
-        <li><strong>IMDb Votes:</strong> {movie.imdbVotes}</li>
+        {Object.entries(movie).map(([key, value]) => (
+          <li key={key}>
+            <strong>{key}:</strong> {value}
+          </li>
+        ))}
       </ul>
     </div>
   );

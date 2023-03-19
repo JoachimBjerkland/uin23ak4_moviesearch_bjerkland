@@ -7,7 +7,7 @@ function App() {
   return (
     <Routes>
       <Route path="/moviecard/:id" element={<MovieCard />} />
-      <Route path="/search" element={<SearchResults />} />
+      <Route path="*" element={<SearchResults />} />
     </Routes>
   );
 }
