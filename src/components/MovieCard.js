@@ -1,26 +1,34 @@
 import React from 'react';
 
-function MovieCard(props) {
-  const { movie } = props;
+function MovieCard({ movie }) {
+  const { Title, Year, Type, Poster, Genre, Director, Actors, Website } = movie;
+
   return (
-    <div>
-      <h2>{movie.Title}</h2>
-      {movie.Poster !== 'N/A' ? (
-        <div>
-          <img src={movie.Poster} alt={movie.Title} />
-        </div>
-      ) : (
-        <div>No poster available</div>
-        //Ettersom det er ihvertfall 1 film uten poster, så er denne lagt til for å vise frem dette.
-      )}
-      <ul>
-        <li>
-          <strong>Year:</strong> {movie.Year}
-        </li>
-        <li>
-          <strong>Type:</strong> {movie.Type}
-        </li>
-      </ul>
+    <div className="movie-card">
+      <div className="movie-card-image">
+        <img src={Poster} alt={`${Title} Poster`} />
+      </div>
+      <div className="movie-card-content">
+        <h2>{Title}</h2>
+        <p>
+          <strong>Year:</strong> {Year}
+        </p>
+        <p>
+          <strong>Type:</strong> {Type}
+        </p>
+        <p>
+          <strong>Genre:</strong> {Genre}
+        </p>
+        <p>
+          <strong>Director:</strong> {Director}
+        </p>
+        <p>
+          <strong>Actors:</strong> {Actors}
+        </p>
+        <p>
+          <strong>Website:</strong> <a href={Website}>{Website}</a>
+        </p>
+      </div>
     </div>
   );
 }
