@@ -27,7 +27,7 @@ function SearchResults() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch(`http://www.omdbapi.com/?s=james+bond&apikey=60a8d1f4`);
+    const response = await fetch(`http://www.omdbapi.com/?s=james+bond&apikey=60a8d1f4&type=movie`);
     const data = await response.json();
     const filteredResults = data.Search ? data.Search.filter((movie) => movie.Title.includes('James Bond')) : [];
     setResults(filteredResults);
