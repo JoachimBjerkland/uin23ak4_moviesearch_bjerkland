@@ -1,33 +1,41 @@
 import React from 'react';
 
-function MovieCard({ movie }) {
-  const { Title, Year, Type, Poster, Genre, Director, Actors, Website } = movie;
-
+function MovieCard(props) {
+  const { movie } = props;
   return (
     <div className="movie-card">
-      <div className="movie-card-image">
-        <img src={Poster} alt={`${Title} Poster`} />
+      <div className="movie-poster">
+        {movie.Poster !== 'N/A' ? (
+          <img src={movie.Poster} alt={movie.Title} />
+        ) : (
+          <div>No poster available</div>
+        )}
       </div>
-      <div className="movie-card-content">
-        <h2>{Title}</h2>
-        <p>
-          <strong>Year:</strong> {Year}
-        </p>
-        <p>
-          <strong>Type:</strong> {Type}
-        </p>
-        <p>
-          <strong>Genre:</strong> {Genre}
-        </p>
-        <p>
-          <strong>Director:</strong> {Director}
-        </p>
-        <p>
-          <strong>Actors:</strong> {Actors}
-        </p>
-        <p>
-          <strong>Website:</strong> <a href={Website}>{Website}</a>
-        </p>
+      <div className="movie-details">
+        <h2 className="movie-title">{movie.Title}</h2>
+        <ul className="movie-metadata">
+          <li>
+            <strong>Year:</strong> {movie.Year}
+          </li>
+          <li>
+            <strong>Type:</strong> {movie.Type}
+          </li>
+          <li>
+            <strong>Genre:</strong> {movie.Genre}
+          </li>
+          <li>
+            <strong>Director:</strong> {movie.Director}
+          </li>
+          <li>
+            <strong>Actors:</strong> {movie.Actors}
+          </li>
+          <li>
+            <strong>Website:</strong> <a href={movie.Website}>{movie.Website}</a>
+          </li>
+            <li>
+              <strong>Price:</strong> {movie.Price}
+            </li>
+        </ul>
       </div>
     </div>
   );
