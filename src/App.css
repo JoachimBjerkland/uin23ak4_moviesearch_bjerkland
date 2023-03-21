@@ -58,7 +58,7 @@ button[type="submit"]:hover {
 }
 
 .movie-card {
-  width: 250px;
+  width: 240px;
   border-radius: 10px;
   overflow: hidden;
 }
