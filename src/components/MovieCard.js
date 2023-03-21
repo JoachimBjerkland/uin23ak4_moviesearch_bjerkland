@@ -5,7 +5,7 @@ function MovieCard(props) {
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        {movie.Poster !== 'N/A' ? (
+        {movie.Poster !== '' ? (
           <img src={movie.Poster} alt={movie.Title} />
         ) : (
           <div>No poster available</div>
