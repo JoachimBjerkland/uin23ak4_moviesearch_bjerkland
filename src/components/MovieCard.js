@@ -1,43 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function MovieCard(props) {
-  const { movie } = props;
+  const {
+    Title,
+    Year,
+    Poster,
+    Type,
+    imdbID,
+  } = props;
+
+  const [movieDetails, setMovieDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=60a8d1f4&plot=full`);
+      const data = await response.json();
+      setMovieDetails(data);
+    };
+    fetchMovieDetails();
+  }, [imdbID]);
+
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        {movie.Poster !== '' ? (
-          <img src={movie.Poster} alt={movie.Title} />
-        ) : (
-          <div>No poster available</div>
-        )}
+        {Poster !== 'N/A' && <img src={Poster} alt={Title} />}
       </div>
       <div className="movie-details">
-        <h2 className="movie-title">{movie.Title}</h2>
+        <h2 className="movie-title">{Title}</h2>
         <ul className="movie-metadata">
           <li>
-            <strong>Year:</strong> {movie.Year}
+            <strong>Year:</strong> {Year}
           </li>
           <li>
-            <strong>Type:</strong> {movie.Type}
+            <strong>Type:</strong> {Type}
           </li>
           <li>
-            <strong>Genre:</strong> {movie.Genre}
+            <strong>IMDb ID:</strong> {imdbID}
           </li>
-          <li>
-            <strong>Actors:</strong> {movie.Actors}
-          </li>
-          <li>
-            <strong>Plot:</strong> {movie.Plot}
-          </li>
-          <li>
-            <strong>Language:</strong> {movie.Language}
-          </li>
-            <li>
-              <strong>Awards:</strong> {movie.Awards}
-            </li>
-            <li>
-              <strong>Ratings:</strong> {movie.Ratings}
-            </li>
+          {movieDetails && (
+            <>
+              <li>
+                <strong>IMDb Rating:</strong> {movieDetails.imdbRating}
+              </li>
+              <li>
+                <strong>Rated:</strong> {movieDetails.Rated}
+              </li>
+              <li>
+                <strong>Runtime:</strong> {movieDetails.Runtime}
+              </li>
+              <li>
+                <strong>Genre:</strong> {movieDetails.Genre}
+              </li>
+              <li>
+                <strong>Director:</strong> {movieDetails.Director}
+              </li>
+              <li>
+                <strong>Writer:</strong> {movieDetails.Writer}
+              </li>
+              <li>
+                <strong>Actors:</strong> {movieDetails.Actors}
+              </li>
+              <li>
+                <strong>Plot:</strong> {movieDetails.Plot}
+              </li>
+              <li>
+                <strong>Language:</strong> {movieDetails.Language}
+              </li>
+              <li>
+                <strong>Awards:</strong> {movieDetails.Awards}
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

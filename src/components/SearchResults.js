@@ -7,7 +7,7 @@ function SearchResults() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://www.omdbapi.com/?s=james+bond&apikey=60a8d1f4&type=movie&plot=full`);
+      const response = await fetch(`https://www.omdbapi.com/?s=james+bond&type=movie&apikey=60a8d1f4&plot=full`);
       const data = await response.json();
       setResults(data.Search);
     };
@@ -23,7 +23,7 @@ function SearchResults() {
   return (
     <div className="search-results-container">
       <form>
-        <label htmlFor="search-input">Search for movies:</label>
+        <label htmlFor="search-input">Search for James Bond movies:</label>
         <input
           type="text"
           id="search-input"
@@ -33,9 +33,10 @@ function SearchResults() {
         <button type="submit">Search</button>
       </form>
       <div className="movie-card-container">
-        {results.map((movie) => (
-          <MovieCard key={movie.imdbID} movie={movie} />
-        ))}
+        {results &&
+          results.map((movie) => (
+            <MovieCard key={movie.imdbID} {...movie} results={results} />
+          ))}
       </div>
     </div>
   );
