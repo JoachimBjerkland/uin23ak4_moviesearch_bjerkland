@@ -5,7 +5,7 @@ function MovieCard(props) {
   return (
     <div className="movie-card">
       <div className="movie-poster">
-        {movie.Poster !== 'N/A' ? (
+        {movie.Poster !== '' ? (
           <img src={movie.Poster} alt={movie.Title} />
         ) : (
           <div>No poster available</div>
@@ -24,16 +24,19 @@ function MovieCard(props) {
             <strong>Genre:</strong> {movie.Genre}
           </li>
           <li>
-            <strong>Director:</strong> {movie.Director}
-          </li>
-          <li>
             <strong>Actors:</strong> {movie.Actors}
           </li>
           <li>
-            <strong>Website:</strong> <a href={movie.Website}>{movie.Website}</a>
+            <strong>Plot:</strong> {movie.Plot}
+          </li>
+          <li>
+            <strong>Language:</strong> {movie.Language}
           </li>
             <li>
-              <strong>Price:</strong> {movie.Price}
+              <strong>Awards:</strong> {movie.Awards}
+            </li>
+            <li>
+              <strong>Ratings:</strong> {movie.Ratings}
             </li>
         </ul>
       </div>
