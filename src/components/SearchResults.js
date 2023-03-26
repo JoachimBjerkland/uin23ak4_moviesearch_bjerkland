@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 
-function SearchResults() {
+export default function SearchResults() {
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -41,5 +41,10 @@ function SearchResults() {
     </div>
   );
 }
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
+//Kilde: https://javascript.info/async-await
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+//Kilde: https://legacy.reactjs.org/docs/hooks-effect.html
+//Kilde: https://docs.couchbase.com/sdk-api/couchbase-node-client-3.1.0/searchquery.js.html
 
-export default SearchResults;

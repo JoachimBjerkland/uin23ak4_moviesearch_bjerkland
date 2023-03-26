@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function MovieCard(props) {
+export default function MovieCard(props) {
   const {
     Title,
     Year,
@@ -77,4 +77,8 @@ function MovieCard(props) {
   );
 }
 
-export default MovieCard;
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
+//Kilde: https://javascript.info/async-await
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
+//Kilde: https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+//Kilde: https://legacy.reactjs.org/docs/hooks-effect.html

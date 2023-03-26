@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import MovieCard from './components/MovieCard';
 import SearchResults from './components/SearchResults';
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/moviecard/:id" element={<MovieCard />} />
@@ -11,5 +11,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;
