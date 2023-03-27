@@ -1,82 +1,56 @@
-$search-results-container-max-width: 800px;
-$search-results-container-padding: 20px;
-$search-results-container-margin: 0 auto;
+@import 'colors';
+
 
 .search-results-container {
-  max-width: $search-results-container-max-width;
-  margin: $search-results-container-margin;
-  padding: $search-results-container-padding;
+  $search-results-container-max-width: 800px;
+  $search-results-container-padding: 20px;
+  $search-results-container-margin: 0 auto;
 }
-
-$movie-card-container-grid-gap: 20px;
-$movie-card-container-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-$movie-card-container-margin-top: 20px;
 
 .movie-card-container {
   display: grid;
-  grid-template-columns: $movie-card-container-grid-template-columns;
-  grid-gap: $movie-card-container-grid-gap;
-  margin-top: $movie-card-container-margin-top;
+  $movie-card-container-grid-gap: 20px;
+  $movie-card-container-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  $movie-card-container-margin-top: 20px;
 }
-
-$search-input-margin-top: 15px;
-$search-input-margin-left: 10px;
-$search-input-padding: 5px;
 
 #search-input {
-  margin-top: $search-input-margin-top;
-  margin-left: $search-input-margin-left;
-  padding: $search-input-padding;
+  $search-input-margin-top: 15px;
+  $search-input-margin-left: 10px;
+  $search-input-padding: 5px;
 }
 
-$label-margin-bottom: 5px;
-$label-margin-left: 10px;
+
 
 label {
-  margin-bottom: $label-margin-bottom;
-  margin-left: $label-margin-left;
+  $label-margin-bottom: 5px;
+  $label-margin-left: 10px;
 }
 
-$submit-button-padding: 10px 20px;
-$submit-button-margin: 10px 0;
-$submit-button-margin-left: 10px;
-$submit-button-background-color: $blue;
-$submit-button-color: $white;
-$submit-button-font-size: 15px;
-$submit-button-border-radius: 4px;
-$submit-button-border: none;
-$submit-button-cursor: pointer;
-$submit-button-transition: all 0.2s ease-in-out;
-
 button[type="submit"] {
-  padding: $submit-button-padding;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: $submit-button-margin;
-  margin-left: $submit-button-margin-left;
-  cursor: $submit-button-cursor;
-  border: $submit-button-border;
-  border-radius: $submit-button-border-radius;
-  background-color: $submit-button-background-color;
-  color: $submit-button-color;
-  font-size: $submit-button-font-size;
-  transition: $submit-button-transition;
+  $submit-button-padding: 10px 20px;
+  $submit-button-margin: 10px 0;
+  $submit-button-margin-left: 10px;
+  $submit-button-background-color: $blue;
+  $submit-button-color: $white;
+  $submit-button-font-size: 15px;
+  $submit-button-border-radius: 4px;
+  $submit-button-border: none;
+  $submit-button-cursor: pointer;
+  $submit-button-transition: all 0.2s ease-in-out;
 }
 
 button[type="submit"]:hover {
   background-color: $blue;
 }
 
-$movie-results-margin-left: 10px;
-$movie-results-gap: 10px;
 
 .movie-results {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-left: $movie-results-margin-left;
-  gap: $movie-results-gap;
+  $movie-results-margin-left: 10px;
+  $movie-results-gap: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -87,13 +61,10 @@ $movie-results-gap: 10px;
   }
 }
 
-$movie-card-width: 240px;
-$movie-card-border-radius: 10px;
 
 .movie-card {
-  width: $movie-card-width;
-  border-radius: $movie-card-border-radius;
-  overflow: hidden;
+  $movie-card-width: 240px;
+  $movie-card-border-radius: 10px;
 
   img {
     width: 100%;

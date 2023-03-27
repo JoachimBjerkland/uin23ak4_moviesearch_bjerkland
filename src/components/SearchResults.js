@@ -20,9 +20,18 @@ export default function SearchResults() {
     setSearchQuery(event.target.value);
   };
 
+  const handleSearchFormSubmit = async (event) => {
+    event.preventDefault();
+    if (searchQuery.length >= 3) {
+      const response = await fetch(`https://www.omdbapi.com/?s=james+bond&type=movie&apikey=60a8d1f4&plot=full`);
+      const data = await response.json();
+      setResults(data.Search);
+    }
+  };
+
   return (
     <div className="search-results-container">
-      <form>
+      <form onSubmit={handleSearchFormSubmit}>
         <label htmlFor="search-input">Søk på James Bond filmer:</label>
         <input
           type="text"
@@ -35,12 +44,16 @@ export default function SearchResults() {
       <div className="movie-card-container">
         {searchQuery.length >= 3 && results &&
           results.map((movie) => (
-            <MovieCard key={movie.imdbID} {...movie} results={results} />
+            <MovieCard key={movie.imdbID} Title={movie.Title} Year={movie.Year} imdbID={movie.imdbID} Poster={movie.Poster !== 'N/A'
+            ? movie.Poster
+            : 'https://via.placeholder.com/150x225'} />
           ))}
       </div>
     </div>
   );
 }
+
+
 
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
 //Kilde: https://javascript.info/async-await
