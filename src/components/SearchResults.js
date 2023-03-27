@@ -23,7 +23,7 @@ export default function SearchResults() {
   return (
     <div className="search-results-container">
       <form>
-        <label htmlFor="search-input">Search for James Bond movies:</label>
+        <label htmlFor="search-input">Søk på James Bond filmer:</label>
         <input
           type="text"
           id="search-input"
@@ -33,7 +33,7 @@ export default function SearchResults() {
         <button type="submit">Search</button>
       </form>
       <div className="movie-card-container">
-        {results &&
+        {searchQuery.length >= 3 && results &&
           results.map((movie) => (
             <MovieCard key={movie.imdbID} {...movie} results={results} />
           ))}
@@ -41,10 +41,10 @@ export default function SearchResults() {
     </div>
   );
 }
+
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
 //Kilde: https://javascript.info/async-await
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/API/Response/json
 //Kilde: https://legacy.reactjs.org/docs/hooks-effect.html
 //Kilde: https://docs.couchbase.com/sdk-api/couchbase-node-client-3.1.0/searchquery.js.html
-
