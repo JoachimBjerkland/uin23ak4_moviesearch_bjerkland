@@ -25,8 +25,7 @@ export default function SearchResults() {
         `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
       );
       const data = await response.json();
-
-      // sort results based on similarity between movie titles and search query
+  
       const searchResults = data.Search;
       if (searchResults) {
         const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
@@ -36,13 +35,14 @@ export default function SearchResults() {
         setResults([]);
       }
     };
-
+  
     if (searchQuery.length >= 3) {
       fetchSearchResults();
     } else {
       fetchDefaultSearchResults();
     }
   }, [searchQuery]);
+  
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
