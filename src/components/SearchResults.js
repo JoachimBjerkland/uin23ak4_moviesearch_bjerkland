@@ -20,19 +20,30 @@ export default function SearchResults() {
 
   const fetchSearchResults = async (formattedQuery) => {
     const response = await fetch(
-      `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
+      `https://www.omdbapi.com/?s=james+bond&type=movie&apikey=60a8d1f4&plot=full`
     );
     const data = await response.json();
-
+  
     const searchResults = data.Search;
     if (searchResults) {
-      const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
-      const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
+      const scores = searchResults.map((movie) =>
+        stringSimilarity.compareTwoStrings(formattedQuery, movie.Title)
+      );
+      const sortedResults = searchResults
+        .slice()
+        .sort(
+          (a, b) =>
+            scores[data.Search.indexOf(b)] -
+            scores[data.Search.indexOf(a)]
+        );
       setResults(sortedResults);
     } else {
       setResults([]);
     }
   };
+  
+  
+  
 
   const handleSearchInputChange = async (event) => {
     setSearchQuery(event.target.value);
@@ -95,3 +106,4 @@ export default function SearchResults() {
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/API/Response/json
 //Kilde: https://legacy.reactjs.org/docs/hooks-effect.html
 //Kilde: https://docs.couchbase.com/sdk-api/couchbase-node-client-3.1.0/searchquery.js.html
+//Kilde: https://www.npmjs.com/package/string-similarity
