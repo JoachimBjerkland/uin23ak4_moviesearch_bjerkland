@@ -18,54 +18,39 @@ export default function SearchResults() {
     fetchDefaultSearchResults();
   }, []);
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      const formattedQuery = searchQuery.trim().replace(/\s+/g, '+');
-      const response = await fetch(
-        `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
-      );
-      const data = await response.json();
-  
-      const searchResults = data.Search;
-      if (searchResults) {
-        const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
-        const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
-        setResults(sortedResults);
-      } else {
-        setResults([]);
-      }
-    };
-  
-    if (searchQuery.length >= 3) {
-      fetchSearchResults();
+  const fetchSearchResults = async (formattedQuery) => {
+    const response = await fetch(
+      `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
+    );
+    const data = await response.json();
+
+    // sort results based on similarity between movie titles and search query
+    const searchResults = data.Search;
+    if (searchResults) {
+      const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
+      const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
+      setResults(sortedResults);
+    } else {
+      setResults([]);
+    }
+  };
+
+  const handleSearchInputChange = async (event) => {
+    setSearchQuery(event.target.value);
+
+    if (event.target.value.length >= 3) {
+      const formattedQuery = event.target.value.trim().replace(/\s+/g, '+');
+      await fetchSearchResults(formattedQuery);
     } else {
       fetchDefaultSearchResults();
     }
-  }, [searchQuery]);
-  
-
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
   };
 
   const handleSearchFormSubmit = async (event) => {
     event.preventDefault();
     if (searchQuery.length >= 3) {
       const formattedQuery = searchQuery.trim().replace(/\s+/g, '+');
-      const response = await fetch(
-        `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
-      );
-      const data = await response.json();
-
-      // sort results based on similarity between movie titles and search query
-      const searchResults = data.Search;
-      if (searchResults) {
-        const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
-        const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
-        setResults(sortedResults);
-      } else {
-        setResults([]);
-      }
+      await fetchSearchResults(formattedQuery);
     } else {
       fetchDefaultSearchResults();
     }
@@ -94,12 +79,13 @@ export default function SearchResults() {
               Poster={
                 movie.Poster !== 'N/A'
                   ? movie.Poster
-            : 'https://via.placeholder.com/150x225'} Type={movie.Type} />
+                  : 'https://via.placeholder.com/150x225'} Type={movie.Type} />
           ))}
       </div>
     </div>
   );
 }
+
 
 
 //Kilde: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong
