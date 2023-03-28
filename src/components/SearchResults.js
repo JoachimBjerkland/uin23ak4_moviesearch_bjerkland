@@ -24,7 +24,6 @@ export default function SearchResults() {
     );
     const data = await response.json();
 
-    // sort results based on similarity between movie titles and search query
     const searchResults = data.Search;
     if (searchResults) {
       const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
