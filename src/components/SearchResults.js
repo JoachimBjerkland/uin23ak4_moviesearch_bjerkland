@@ -24,6 +24,7 @@ export default function SearchResults() {
     );
     const data = await response.json();
 
+    // sort results based on similarity between movie titles and search query
     const searchResults = data.Search;
     if (searchResults) {
       const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
@@ -64,6 +65,7 @@ export default function SearchResults() {
           id="search-input"
           value={searchQuery}
           onChange={handleSearchInputChange}
+          minLength={3}
         />
         <button type="submit">Search</button>
       </form>
@@ -84,6 +86,7 @@ export default function SearchResults() {
     </div>
   );
 }
+
 
 
 
