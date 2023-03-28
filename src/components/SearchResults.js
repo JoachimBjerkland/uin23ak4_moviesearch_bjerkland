@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
+import stringSimilarity from 'string-similarity';
 
 export default function SearchResults() {
   const [results, setResults] = useState([]);
@@ -21,11 +22,21 @@ export default function SearchResults() {
     const fetchSearchResults = async () => {
       const formattedQuery = searchQuery.trim().replace(/\s+/g, '+');
       const response = await fetch(
-        `https://www.omdbapi.com/?s=${formattedQuery}&type=movie&apikey=60a8d1f4&plot=full`
+        `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
       );
       const data = await response.json();
-      setResults(data.Search);
+
+      // sort results based on similarity between movie titles and search query
+      const searchResults = data.Search;
+      if (searchResults) {
+        const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
+        const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
+        setResults(sortedResults);
+      } else {
+        setResults([]);
+      }
     };
+
     if (searchQuery.length >= 3) {
       fetchSearchResults();
     } else {
@@ -42,10 +53,19 @@ export default function SearchResults() {
     if (searchQuery.length >= 3) {
       const formattedQuery = searchQuery.trim().replace(/\s+/g, '+');
       const response = await fetch(
-        `https://www.omdbapi.com/?s=${formattedQuery}&type=movie&apikey=60a8d1f4&plot=full`
+        `https://www.omdbapi.com/?s=${formattedQuery}+james+bond&type=movie&apikey=60a8d1f4&plot=full`
       );
       const data = await response.json();
-      setResults(data.Search);
+
+      // sort results based on similarity between movie titles and search query
+      const searchResults = data.Search;
+      if (searchResults) {
+        const scores = searchResults.map((movie) => stringSimilarity.compareTwoStrings(searchQuery, movie.Title));
+        const sortedResults = searchResults.slice().sort((a, b) => scores[searchResults.indexOf(b)] - scores[searchResults.indexOf(a)]);
+        setResults(sortedResults);
+      } else {
+        setResults([]);
+      }
     } else {
       fetchDefaultSearchResults();
     }
@@ -66,8 +86,14 @@ export default function SearchResults() {
       <div className="movie-card-container">
         {results &&
           results.map((movie) => (
-            <MovieCard key={movie.imdbID} Title={movie.Title} Year={movie.Year} imdbID={movie.imdbID} Poster={movie.Poster !== 'N/A'
-            ? movie.Poster
+            <MovieCard
+              key={movie.imdbID}
+              Title={movie.Title}
+              Year={movie.Year}
+              imdbID={movie.imdbID}
+              Poster={
+                movie.Poster !== 'N/A'
+                  ? movie.Poster
             : 'https://via.placeholder.com/150x225'} Type={movie.Type} />
           ))}
       </div>
